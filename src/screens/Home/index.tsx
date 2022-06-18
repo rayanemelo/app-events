@@ -39,55 +39,33 @@ const Home: React.FC = () => {
             <View>
               <Input placeholder="Buscar..." />
             </View>
+
             <ContainerEvent>
               <View>
                 <TouchableOpacity onPress={() => navigation.navigate('Event')}>
                   <Text>Nome do evento</Text>
                 </TouchableOpacity>
               </View>
-              <ContainerIcons>
-                <TouchableOpacity>
-                  <Icon
-                    name="edit"
-                    size={30}
-                    color="#7d7d7d"
-                    style={{marginRight: 15}}
-                  />
-                </TouchableOpacity>
-                <TouchableOpacity>
-                  <Icon
-                    name="trash-o"
-                    size={28}
-                    color="#7d7d7d"
-                    style={{marginRight: 10}}
-                  />
-                </TouchableOpacity>
-              </ContainerIcons>
-            </ContainerEvent>
-            <ContainerEvent>
-              <View>
-                <TouchableOpacity onPress={() => navigation.navigate('Event')}>
-                  <Text>Nome do evento</Text>
-                </TouchableOpacity>
-              </View>
-              <ContainerIcons>
-                <TouchableOpacity>
-                  <Icon
-                    name="edit"
-                    size={30}
-                    color="#7d7d7d"
-                    style={{marginRight: 15}}
-                  />
-                </TouchableOpacity>
-                <TouchableOpacity>
-                  <Icon
-                    name="trash-o"
-                    size={28}
-                    color="#7d7d7d"
-                    style={{marginRight: 10}}
-                  />
-                </TouchableOpacity>
-              </ContainerIcons>
+              {admin && (
+                <ContainerIcons>
+                  <TouchableOpacity>
+                    <Icon
+                      name="edit"
+                      size={30}
+                      color="#7d7d7d"
+                      style={{marginRight: 15}}
+                    />
+                  </TouchableOpacity>
+                  <TouchableOpacity>
+                    <Icon
+                      name="trash-o"
+                      size={28}
+                      color="#7d7d7d"
+                      style={{marginRight: 10}}
+                    />
+                  </TouchableOpacity>
+                </ContainerIcons>
+              )}
             </ContainerEvent>
             {admin && (
               <View>
