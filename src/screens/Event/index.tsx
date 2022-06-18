@@ -13,6 +13,7 @@ const Event: React.FC = () => {
   return (
     <>
       <Header text="Nome do evento" hasIcon={true} />
+      <View></View>
     </>
   );
 };

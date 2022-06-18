@@ -21,13 +21,15 @@ export const Text = styled.Text`
   color:#222222,
   font-weight: 400;
   font-size:18px;
-  padding:15px 0;
-  borderBottomColor: #ddd;
-  borderBottomWidth:1
+
 `;
 
 export const ContainerEvent = styled.View`
-  flex: 1;
-  background-color: #f5f5f5;
-  padding: 20px 10px;
+  flex-direction: row;
+  padding: 15px 0;
+`;
+
+export const ContainerIcons = styled.View`
+  flex-direction: row;
+  margin-left: auto;
 `;
