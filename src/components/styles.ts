@@ -8,9 +8,10 @@ interface IColorsProps {
 
 export const HeaderStyled = styled.View`
   height: 55px;
-  background-color: #1c658c;
-  justify-content: center;
-  padding-left: 20px;
+  background-color: ${blue};
+  padding-left: 15px;
+  flex-direction: row;
+  align-items: center;
 `;
 
 export const TextStyled = styled.Text<IColorsProps>`

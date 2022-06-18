@@ -13,12 +13,12 @@ export const ContainerEventZero = styled.View`
 `;
 
 export const ZeroEvent = styled.Text`
-  color:#222, 
+  color:#222222, 
   font-size:16px;
 `;
 
 export const Text = styled.Text`
-  color:#222,
+  color:#222222,
   font-weight: 400;
   font-size:18px;
   padding:15px 0;
