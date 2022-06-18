@@ -16,7 +16,7 @@ export const Text = styled.Text`
 `;
 
 export const Image = styled.Image`
-  width: 100px;
-  height: 100px;
+  width: 140px;
+  height: 140px;
   align-self: center;
 `;

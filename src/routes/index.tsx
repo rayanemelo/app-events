@@ -4,6 +4,7 @@ import {createNativeStackNavigator} from '@react-navigation/native-stack';
 import {RootStackParamsList} from '../screens/RootStackParams';
 import Home from '../screens/Home/';
 import Login from '../screens/Login/';
+import Event from '../screens/Event/';
 
 const Stack = createNativeStackNavigator<RootStackParamsList>();
 
@@ -19,6 +20,11 @@ const Routes: React.FC = () => {
         <Stack.Screen
           name="Home"
           component={Home}
+          options={{headerShown: false}}
+        />
+        <Stack.Screen
+          name="Event"
+          component={Event}
           options={{headerShown: false}}
         />
       </Stack.Navigator>
