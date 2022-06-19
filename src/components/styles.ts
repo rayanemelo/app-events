@@ -35,9 +35,7 @@ export const InputStyled = styled.TextInput`
   height: 48px;
   background-color: #fff;
   border: 2px solid #1c658c
-  margin: 5px 0;
-  align-items: center;
-  justify-content: center;
+  margin: 5px 0; 
   border-radius:8px;
   padding-left:10px
 `;

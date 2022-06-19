@@ -46,7 +46,7 @@ const Home: React.FC = () => {
                   <Text>Nome do evento</Text>
                 </TouchableOpacity>
               </View>
-              {admin && (
+              {!admin && (
                 <ContainerIcons>
                   <TouchableOpacity>
                     <Icon
@@ -67,9 +67,13 @@ const Home: React.FC = () => {
                 </ContainerIcons>
               )}
             </ContainerEvent>
-            {admin && (
-              <View>
-                <Button text="Cadastrar Evento" variantColor="blue" />
+            {!admin && (
+              <View style={{marginTop: 20}}>
+                <Button
+                  text="Cadastrar Evento"
+                  variantColor="blue"
+                  onPress={() => navigation.navigate('RegisterEvent')}
+                />
               </View>
             )}
           </Container>
