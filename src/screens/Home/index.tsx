@@ -2,6 +2,7 @@ import React, {useEffect, useState} from 'react';
 import {NativeStackNavigationProp} from '@react-navigation/native-stack';
 import {useNavigation} from '@react-navigation/native';
 import {RootStackParamsList} from '../RootStackParams';
+import axios from 'axios';
 import {
   Container,
   ContainerEvent,
@@ -10,17 +11,16 @@ import {
   ContainerEventZero,
   ContainerIcons,
 } from './styles';
-import {ScrollView, View, TouchableOpacity} from 'react-native';
+import {ScrollView, View, TouchableOpacity, FlatList} from 'react-native';
 import Header from '../../components/Header';
 import Input from '../../components/Input';
 import Button from '../../components/Button';
 import Icon from 'react-native-vector-icons/FontAwesome';
-import axios from 'axios';
 
 type HomeScreenProp = NativeStackNavigationProp<RootStackParamsList, 'Home'>;
 
-interface IEvent {
-  _id: number;
+interface IEvents {
+  _id: string;
   createdAt: string;
   date: string;
   description: string;
@@ -53,6 +53,38 @@ const Home: React.FC = () => {
     })();
   }, []);
 
+  const Item = ({data}: {data: IEvents}) => {
+    return (
+      <ContainerEvent>
+        <View>
+          <TouchableOpacity onPress={() => navigation.navigate('Event')}>
+            <Text>{data.name}</Text>
+          </TouchableOpacity>
+        </View>
+        {!admin && (
+          <ContainerIcons>
+            <TouchableOpacity>
+              <Icon
+                name="edit"
+                size={30}
+                color="#7d7d7d"
+                style={{marginRight: 15}}
+              />
+            </TouchableOpacity>
+            <TouchableOpacity>
+              <Icon
+                name="trash-o"
+                size={28}
+                color="#7d7d7d"
+                style={{marginRight: 10}}
+              />
+            </TouchableOpacity>
+          </ContainerIcons>
+        )}
+      </ContainerEvent>
+    );
+  };
+
   return (
     <>
       <Header text="Eventos" />
@@ -62,36 +94,13 @@ const Home: React.FC = () => {
             <View>
               <Input placeholder="Buscar..." />
             </View>
-            {events?.map((event: IEvent) => (
-              <ContainerEvent>
-                <View>
-                  <TouchableOpacity
-                    onPress={() => navigation.navigate('Event')}>
-                    <Text>{event.name}</Text>
-                  </TouchableOpacity>
-                </View>
-                {!admin && (
-                  <ContainerIcons>
-                    <TouchableOpacity>
-                      <Icon
-                        name="edit"
-                        size={30}
-                        color="#7d7d7d"
-                        style={{marginRight: 15}}
-                      />
-                    </TouchableOpacity>
-                    <TouchableOpacity>
-                      <Icon
-                        name="trash-o"
-                        size={28}
-                        color="#7d7d7d"
-                        style={{marginRight: 10}}
-                      />
-                    </TouchableOpacity>
-                  </ContainerIcons>
-                )}
-              </ContainerEvent>
-            ))}
+            <View>
+              <FlatList
+                data={events}
+                renderItem={({item}) => <Item data={item} />}
+                keyExtractor={(item: IEvents) => item._id}
+              />
+            </View>
 
             {!admin && (
               <View style={{marginTop: 20}}>
