@@ -41,9 +41,11 @@ const EventsAdmin: React.FC = () => {
   const [events, setEvents] = useState([]);
   const [loaded, setLoaded] = useState<Boolean>(false);
   const [eventId, setEventId] = useState<String>();
+  const [deleted, setDeleted] = useState<Boolean>(false);
 
   useEffect(() => {
     (async () => {
+      setDeleted(false);
       try {
         const response = await axios.get(`http://192.168.2.104:3006/events`);
         setEvents(response.data);
@@ -53,7 +55,19 @@ const EventsAdmin: React.FC = () => {
         setLoaded(true);
       }
     })();
-  }, []);
+  }, [deleted]);
+
+  const deleteEvent = async (id: string) => {
+    try {
+      const response = await axios.delete(
+        `http://192.168.2.104:3006/delete-event/${id}`,
+      );
+    } catch (error) {
+      console.log(error);
+    } finally {
+      setDeleted(true);
+    }
+  };
 
   const Item = ({data}: {data: IEvents}) => {
     return (
@@ -76,7 +90,7 @@ const EventsAdmin: React.FC = () => {
               style={{marginRight: 15}}
             />
           </TouchableOpacity>
-          <TouchableOpacity>
+          <TouchableOpacity onPress={id => deleteEvent(data._id)}>
             <Icon
               name="trash-o"
               size={28}
