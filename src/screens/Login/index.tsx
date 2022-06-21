@@ -24,8 +24,8 @@ const users = {
 const Login: React.FC = () => {
   const navigation = useNavigation<LoginScreenProp>();
   const [userCredentials, setUserCredentials] = useState({
-    email: 'admin@admin.com',
-    password: 'admin',
+    email: '',
+    password: '',
   });
 
   const handleLogin = () => {
@@ -39,8 +39,6 @@ const Login: React.FC = () => {
       userCredentials.password === users.user.password
     ) {
       navigation.navigate('EventsUser');
-    } else {
-      // Alert('Usuário ou senha inválidos');
     }
   };
 

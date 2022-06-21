@@ -1,13 +1,19 @@
 import React, {useEffect, useState} from 'react';
-import {View} from 'react-native';
+import {View, Modal, TouchableOpacity} from 'react-native';
 import {useNavigation} from '@react-navigation/native';
-import {Container, Title, Text, Bold} from './styles';
+import {
+  Container,
+  Title,
+  Text,
+  Bold,
+  ContainerModal,
+  TextModal,
+} from './styles';
 import Header from '../../components/Header';
 import Button from '../../components/Button';
 import {Loader} from '../../components/Loader';
-
+import Icon from 'react-native-vector-icons/FontAwesome';
 import axios from 'axios';
-import {NavigationContainer} from '@react-navigation/native';
 
 interface IEvent {
   _id: string;
@@ -28,6 +34,7 @@ const Event: React.FC = ({route}: any) => {
   const {eventId} = route.params;
   const [event, setEvent] = useState({} as IEvent);
   const [loaded, setLoaded] = useState<Boolean>(false);
+  const [modalVisible, setModalVisible] = useState(false);
 
   useEffect(() => {
     (async () => {
@@ -72,9 +79,35 @@ const Event: React.FC = ({route}: any) => {
                 <Text>{event.info}</Text>
               </View>
               <View>
-                <Button text="Comprar ingresso" variantColor="blue" />
+                <Button
+                  text="Comprar ingresso"
+                  variantColor="blue"
+                  onPress={() => setModalVisible(!modalVisible)}
+                />
               </View>
             </Container>
+
+            <Modal
+              animationType="fade"
+              transparent={true}
+              visible={modalVisible}>
+              <ContainerModal>
+                <TouchableOpacity
+                  onPress={() => setModalVisible(!modalVisible)}
+                  style={{alignSelf: 'flex-end'}}>
+                  <Icon name="close" size={25} color="#1c658c" />
+                </TouchableOpacity>
+                <View>
+                  <Icon
+                    name="shopping-cart"
+                    size={40}
+                    color="#1c658c"
+                    style={{marginTop: 20, textAlign: 'center'}}
+                  />
+                  <TextModal>Ingresso adicionado ao carrinho</TextModal>
+                </View>
+              </ContainerModal>
+            </Modal>
           </>
         )
       )}

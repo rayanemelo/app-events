@@ -26,3 +26,18 @@ export const Text = styled.Text`
   text-align: justify;
   margin-bottom: 10px;
 `;
+
+export const ContainerModal = styled.View`
+  padding: 10px;
+  width: 65%;
+  background-color: #fff;
+  border-radius: 8px;
+  margin: 200px auto 0;
+  elevation: 10;
+`;
+export const TextModal = styled.Text`
+  font-size: 16px;
+  text-align: justify;
+  margin: 10px auto 15px;
+  text-align: center;
+`;

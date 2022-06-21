@@ -9,12 +9,12 @@ import {
   Text,
   ZeroEvent,
   ContainerEventZero,
-  ContainerIcons,
+  Linha,
+  ContainerModal,
 } from './styles';
-import {ScrollView, View, TouchableOpacity, FlatList} from 'react-native';
+import {View, TouchableOpacity, FlatList} from 'react-native';
 import Header from '../../components/Header';
 import Input from '../../components/Input';
-import Button from '../../components/Button';
 import {Loader} from '../../components/Loader';
 
 type EventsUserScreenProp = NativeStackNavigationProp<
@@ -64,6 +64,7 @@ const EventsUser: React.FC = () => {
               setEventId(data._id);
             }}>
             <Text>{data.name}</Text>
+            <Linha />
           </TouchableOpacity>
         </View>
       </ContainerEvent>

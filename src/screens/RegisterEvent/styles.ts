@@ -17,7 +17,7 @@ export const Descripcion = styled.TextInput`
 `;
 
 export const ContainerModal = styled.View`
- padding: 20px
+  padding: 10px;
   width: 80%;
   background-color: #1c658c;
   border-radius: 8px;
@@ -31,14 +31,5 @@ export const TextModal = styled.Text`
   color: #fff;
   font-weight: bold;
   font-size: 16px;
-`;
-
-export const CloseModal = styled.Text`
-  color: #1c658c;
-  height: 30px;
-  background-color: #ddd;
-  border-radius: 8px;
-  margin-top: 15px;
-  text-align: center;
-  padding: 5px;
+  margin: 10px 0 25px;
 `;

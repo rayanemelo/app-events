@@ -12,6 +12,7 @@ export const HeaderStyled = styled.View`
   padding-left: 15px;
   flex-direction: row;
   align-items: center;
+  padding-right: 5px;
 `;
 
 export const TextStyled = styled.Text<IColorsProps>`

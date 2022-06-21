@@ -1,4 +1,7 @@
 import styled from 'styled-components/native';
+import {Dimensions} from 'react-native';
+
+const windowWidth = Dimensions.get('window').width;
 
 export const Container = styled.View`
   flex: 1;
@@ -32,4 +35,10 @@ export const ContainerEvent = styled.View`
 export const ContainerIcons = styled.View`
   flex-direction: row;
   margin-left: auto;
+`;
+export const Linha = styled.View`
+  width: ${windowWidth - 20}
+  height: 1;
+  background-color: #ccc;
+  margin-top: 10px;
 `;

@@ -7,13 +7,8 @@ import {TouchableOpacity, View, Text, Modal} from 'react-native';
 import Header from '../../components/Header';
 import Input from '../../components/Input';
 import Button from '../../components/Button';
-import {
-  Container,
-  Descripcion,
-  ContainerModal,
-  TextModal,
-  CloseModal,
-} from './styles';
+import Icon from 'react-native-vector-icons/FontAwesome';
+import {Container, Descripcion, ContainerModal, TextModal} from './styles';
 
 type RegisterEventScreenProp = NativeStackNavigationProp<
   RootStackParamsList,
@@ -164,10 +159,14 @@ const RegisterEvent: React.FC = ({route}: any) => {
         </View>
         <Modal animationType="fade" transparent={true} visible={modalVisible}>
           <ContainerModal>
-            <TextModal>Cadastro salvo com sucesso!</TextModal>
-            <TouchableOpacity onPress={() => handleCloseModal()}>
-              <CloseModal>Fechar</CloseModal>
+            <TouchableOpacity
+              onPress={() => handleCloseModal()}
+              style={{alignSelf: 'flex-end'}}>
+              <Icon name="close" size={25} color="#fff" />
             </TouchableOpacity>
+            <View>
+              <TextModal>Dados salvos com sucesso!</TextModal>
+            </View>
           </ContainerModal>
         </Modal>
       </Container>

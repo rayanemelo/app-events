@@ -77,7 +77,7 @@ const EventsAdmin: React.FC = () => {
   const Item = ({data}: {data: IEvents}) => {
     return (
       <ContainerEvent>
-        <View>
+        <View style={{width: '90%'}}>
           <TouchableOpacity
             onPress={() => {
               navigation.navigate('Event', {eventId: data._id});
