@@ -33,7 +33,7 @@ const Login: React.FC = () => {
       userCredentials.email === users.admin.email &&
       userCredentials.password === users.admin.password
     ) {
-      navigation.navigate('EventsAdmin');
+      navigation.navigate('EventsAdmin', {reload: false});
     } else if (
       userCredentials.email === users.user.email &&
       userCredentials.password === users.user.password

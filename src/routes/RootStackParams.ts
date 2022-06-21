@@ -3,5 +3,5 @@ export type RootStackParamsList = {
   Login: undefined;
   Event: {eventId: string};
   RegisterEvent: undefined;
-  EventsAdmin: undefined;
+  EventsAdmin: {reload: boolean};
 };

@@ -35,8 +35,10 @@ interface IEvents {
   updatedAt: string;
 }
 
-const EventsAdmin: React.FC = () => {
+const EventsAdmin: React.FC = ({route}: any) => {
   const navigation = useNavigation<HomeScreenProp>();
+
+  const {reload} = route.params;
 
   const [events, setEvents] = useState([]);
   const [loaded, setLoaded] = useState<Boolean>(false);
@@ -55,7 +57,7 @@ const EventsAdmin: React.FC = () => {
         setLoaded(true);
       }
     })();
-  }, [deleted]);
+  }, [deleted, reload]);
 
   const deleteEvent = async (id: string) => {
     try {

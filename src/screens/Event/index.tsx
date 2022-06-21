@@ -1,11 +1,13 @@
 import React, {useEffect, useState} from 'react';
 import {View} from 'react-native';
+import {useNavigation} from '@react-navigation/native';
 import {Container, Title, Text, Bold} from './styles';
 import Header from '../../components/Header';
 import Button from '../../components/Button';
 import {Loader} from '../../components/Loader';
 
 import axios from 'axios';
+import {NavigationContainer} from '@react-navigation/native';
 
 interface IEvent {
   _id: string;
@@ -21,6 +23,8 @@ interface IEvent {
 }
 
 const Event: React.FC = ({route}: any) => {
+  const navigation = useNavigation();
+
   const {eventId} = route.params;
   const [event, setEvent] = useState({} as IEvent);
   const [loaded, setLoaded] = useState<Boolean>(false);
@@ -47,7 +51,11 @@ const Event: React.FC = ({route}: any) => {
       ) : (
         event && (
           <>
-            <Header text={event?.name} hasIcon={true} />
+            <Header
+              text={event?.name}
+              hasIcon={true}
+              onPress={() => navigation.goBack()}
+            />
             <Container>
               <View>
                 <Title>{event.name}</Title>
