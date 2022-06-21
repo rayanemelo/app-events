@@ -10,12 +10,12 @@ import {
   ZeroEvent,
   ContainerEventZero,
   Linha,
-  ContainerModal,
 } from './styles';
 import {View, TouchableOpacity, FlatList} from 'react-native';
 import Header from '../../components/Header';
 import Input from '../../components/Input';
 import {Loader} from '../../components/Loader';
+import Icon from 'react-native-vector-icons/FontAwesome';
 
 type EventsUserScreenProp = NativeStackNavigationProp<
   RootStackParamsList,
@@ -63,7 +63,15 @@ const EventsUser: React.FC = () => {
               navigation.navigate('Event', {eventId: data._id});
               setEventId(data._id);
             }}>
-            <Text>{data.name}</Text>
+            <View style={{flexDirection: 'row'}}>
+              <Icon
+                name="calendar"
+                size={20}
+                color="#1c658c"
+                style={{marginRight: 10}}
+              />
+              <Text>{data.name}</Text>
+            </View>
             <Linha />
           </TouchableOpacity>
         </View>

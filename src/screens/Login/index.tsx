@@ -3,7 +3,7 @@ import {NativeStackNavigationProp} from '@react-navigation/native-stack';
 import {useNavigation} from '@react-navigation/native';
 import {RootStackParamsList} from '../../routes/RootStackParams';
 import {Container, Text, Image} from './styles';
-import {View, Alert} from 'react-native';
+import {View} from 'react-native';
 import Input from '../../components/Input';
 import Button from '../../components/Button';
 import logo from '../../assets/logo.png';
