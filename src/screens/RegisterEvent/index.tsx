@@ -30,17 +30,32 @@ interface IRegisterEvent {
   info: string;
 }
 
-const RegisterEvent: React.FC = () => {
+const RegisterEvent: React.FC = ({route}: any) => {
+  const {data} = route.params;
+  console.log('data: ', data);
+
   const navigation = useNavigation<RegisterEventScreenProp>();
   const [modalVisible, setModalVisible] = useState(false);
-  const [form, setForm] = useState({} as IRegisterEvent);
-
-  // const handleUpdate;
+  const [form, setForm] = useState(
+    data ? (data as IRegisterEvent) : ({} as IRegisterEvent),
+  );
 
   const handleSubmit = async () => {
     try {
       const response = await axios.post(
         'http://192.168.2.104:3006/register-event',
+        form,
+      );
+      setModalVisible(true);
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
+  const handleUpdate = async () => {
+    try {
+      const response = await axios.put(
+        `http://192.168.2.104:3006/update-event/${data._id}`,
         form,
       );
       setModalVisible(true);
@@ -57,9 +72,11 @@ const RegisterEvent: React.FC = () => {
   return (
     <>
       <Header
-        text="Cadastrar Evento"
+        text={
+          Object.keys(data).length ? 'Atualizar Evento' : 'Cadastrar Evento'
+        }
         hasIcon={true}
-        onPress={() => navigation.navigate('EventsAdmin', {reload: true})}
+        onPress={() => navigation.navigate('EventsAdmin')}
       />
       <Container>
         <View>
@@ -138,7 +155,11 @@ const RegisterEvent: React.FC = () => {
           <Button
             text="Salvar"
             variantColor="blue"
-            onPress={() => handleSubmit()}
+            onPress={
+              Object.keys(data).length
+                ? () => handleUpdate()
+                : () => handleSubmit()
+            }
           />
         </View>
         <Modal animationType="fade" transparent={true} visible={modalVisible}>

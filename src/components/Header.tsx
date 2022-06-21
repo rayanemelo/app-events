@@ -5,7 +5,7 @@ import Icon from 'react-native-vector-icons/FontAwesome';
 interface IHeaderProps {
   text: string;
   hasIcon?: boolean;
-  onPress: () => void;
+  onPress?: () => void;
 }
 
 const Header: React.FC<IHeaderProps> = ({text, hasIcon = false, onPress}) => {

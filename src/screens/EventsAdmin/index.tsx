@@ -17,13 +17,14 @@ import Input from '../../components/Input';
 import Button from '../../components/Button';
 import {Loader} from '../../components/Loader';
 import Icon from 'react-native-vector-icons/FontAwesome';
+import {useIsFocused} from '@react-navigation/native';
 
 type HomeScreenProp = NativeStackNavigationProp<
   RootStackParamsList,
   'EventsAdmin'
 >;
 
-interface IEvents {
+export interface IEvents {
   _id: string;
   createdAt: string;
   date: string;
@@ -35,10 +36,10 @@ interface IEvents {
   updatedAt: string;
 }
 
-const EventsAdmin: React.FC = ({route}: any) => {
+const EventsAdmin: React.FC = () => {
   const navigation = useNavigation<HomeScreenProp>();
 
-  const {reload} = route.params;
+  const isFocused = useIsFocused();
 
   const [events, setEvents] = useState([]);
   const [loaded, setLoaded] = useState<Boolean>(false);
@@ -46,7 +47,7 @@ const EventsAdmin: React.FC = ({route}: any) => {
   const [deleted, setDeleted] = useState<Boolean>(false);
 
   useEffect(() => {
-    (async () => {
+    const getEvents = async () => {
       setDeleted(false);
       try {
         const response = await axios.get(`http://192.168.2.104:3006/events`);
@@ -56,8 +57,10 @@ const EventsAdmin: React.FC = ({route}: any) => {
       } finally {
         setLoaded(true);
       }
-    })();
-  }, [deleted, reload]);
+    };
+
+    getEvents();
+  }, [deleted, isFocused]);
 
   const deleteEvent = async (id: string) => {
     try {
@@ -84,7 +87,8 @@ const EventsAdmin: React.FC = ({route}: any) => {
           </TouchableOpacity>
         </View>
         <ContainerIcons>
-          <TouchableOpacity>
+          <TouchableOpacity
+            onPress={() => navigation.navigate('RegisterEvent', {data: data})}>
             <Icon
               name="edit"
               size={30}
@@ -92,7 +96,7 @@ const EventsAdmin: React.FC = ({route}: any) => {
               style={{marginRight: 15}}
             />
           </TouchableOpacity>
-          <TouchableOpacity onPress={id => deleteEvent(data._id)}>
+          <TouchableOpacity onPress={() => deleteEvent(data._id)}>
             <Icon
               name="trash-o"
               size={28}
@@ -129,7 +133,9 @@ const EventsAdmin: React.FC = ({route}: any) => {
                 <Button
                   text="Cadastrar Evento"
                   variantColor="blue"
-                  onPress={() => navigation.navigate('RegisterEvent')}
+                  onPress={() =>
+                    navigation.navigate('RegisterEvent', {data: {}})
+                  }
                 />
               </View>
             </Container>
