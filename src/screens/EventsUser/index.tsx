@@ -15,9 +15,12 @@ import {ScrollView, View, TouchableOpacity, FlatList} from 'react-native';
 import Header from '../../components/Header';
 import Input from '../../components/Input';
 import Button from '../../components/Button';
-import Icon from 'react-native-vector-icons/FontAwesome';
+import {Loader} from '../../components/Loader';
 
-type HomeScreenProp = NativeStackNavigationProp<RootStackParamsList, 'Home'>;
+type EventsUserScreenProp = NativeStackNavigationProp<
+  RootStackParamsList,
+  'EventsUser'
+>;
 
 interface IEvents {
   _id: string;
@@ -32,11 +35,10 @@ interface IEvents {
 }
 
 const EventsUser: React.FC = () => {
-  const navigation = useNavigation<HomeScreenProp>();
+  const navigation = useNavigation<EventsUserScreenProp>();
 
   const [events, setEvents] = useState([]);
   const [loaded, setLoaded] = useState<Boolean>(false);
-  const [admin, setAdmin] = useState<Boolean>(false);
   const [eventId, setEventId] = useState<String>();
 
   useEffect(() => {
@@ -71,21 +73,25 @@ const EventsUser: React.FC = () => {
   return (
     <>
       <Header text="Eventos" />
-      {events.length ? (
-        <ScrollView contentContainerStyle={{flexGrow: 1}}>
-          <Container>
-            <View>
-              <Input placeholder="Buscar..." />
-            </View>
-            <View>
-              <FlatList
-                data={events}
-                renderItem={({item}) => <Item data={item} />}
-                keyExtractor={(item: IEvents) => item._id}
-              />
-            </View>
-          </Container>
-        </ScrollView>
+      {!loaded ? (
+        <Loader />
+      ) : events.length ? (
+        <>
+          <View style={{flexGrow: 1}}>
+            <Container>
+              <View>
+                <Input placeholder="Buscar..." />
+              </View>
+              <View>
+                <FlatList
+                  data={events}
+                  renderItem={({item}) => <Item data={item} />}
+                  keyExtractor={(item: IEvents) => item._id}
+                />
+              </View>
+            </Container>
+          </View>
+        </>
       ) : (
         <>
           <ContainerEventZero>

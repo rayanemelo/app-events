@@ -11,16 +11,11 @@ import {
   ContainerEventZero,
   ContainerIcons,
 } from './styles';
-import {
-  ScrollView,
-  View,
-  TouchableOpacity,
-  FlatList,
-  ActivityIndicator,
-} from 'react-native';
+import {View, TouchableOpacity, FlatList} from 'react-native';
 import Header from '../../components/Header';
 import Input from '../../components/Input';
 import Button from '../../components/Button';
+import {Loader} from '../../components/Loader';
 import Icon from 'react-native-vector-icons/FontAwesome';
 
 type HomeScreenProp = NativeStackNavigationProp<
@@ -98,9 +93,7 @@ const EventsAdmin: React.FC = () => {
     <>
       <Header text="Eventos" />
       {!loaded ? (
-        <View style={{flex: 1, alignItems: 'center', justifyContent: 'center'}}>
-          <ActivityIndicator size="large" color="#1c658c" />
-        </View>
+        <Loader />
       ) : events.length ? (
         <>
           <View style={{flexGrow: 1}}>
