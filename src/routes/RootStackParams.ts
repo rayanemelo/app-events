@@ -1,7 +1,7 @@
 export type RootStackParamsList = {
-  //nomes das telas
-  Home: undefined;
+  EventsUser: undefined;
   Login: undefined;
-  Event: undefined;
+  Event: {eventId: string};
   RegisterEvent: undefined;
+  EventsAdmin: undefined;
 };

@@ -1,7 +1,7 @@
 import React, {useState} from 'react';
 import {NativeStackNavigationProp} from '@react-navigation/native-stack';
 import {useNavigation} from '@react-navigation/native';
-import {RootStackParamsList} from '../RootStackParams';
+import {RootStackParamsList} from '../../routes/RootStackParams';
 import {TouchableOpacity, View, Text, Modal} from 'react-native';
 import Header from '../../components/Header';
 import Input from '../../components/Input';
@@ -22,6 +22,7 @@ type RegisterEventScreenProp = NativeStackNavigationProp<
 const RegisterEvent: React.FC = () => {
   const navigation = useNavigation<RegisterEventScreenProp>();
   const [modalVisible, setModalVisible] = useState(false);
+
   return (
     <>
       <Header text="Cadastrar Evento" hasIcon={true} />

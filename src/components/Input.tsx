@@ -4,12 +4,25 @@ import {InputStyled} from './styles';
 
 interface IInputProps {
   placeholder: string;
+  value?: string;
+  onChange?: (e: any) => void;
+  secureTextEntry?: boolean;
 }
 
-const Input: React.FC<IInputProps> = ({placeholder}) => {
+const Input: React.FC<IInputProps> = ({
+  placeholder,
+  value,
+  onChange,
+  secureTextEntry,
+}) => {
   return (
     <View>
-      <InputStyled placeholder={placeholder} />
+      <InputStyled
+        placeholder={placeholder}
+        value={value}
+        onChange={onChange}
+        secureTextEntry={secureTextEntry}
+      />
     </View>
   );
 };

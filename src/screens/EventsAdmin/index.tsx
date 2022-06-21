@@ -1,7 +1,7 @@
 import React, {useEffect, useState} from 'react';
 import {NativeStackNavigationProp} from '@react-navigation/native-stack';
 import {useNavigation} from '@react-navigation/native';
-import {RootStackParamsList} from '../RootStackParams';
+import {RootStackParamsList} from '../../routes/RootStackParams';
 import axios from 'axios';
 import {
   Container,
@@ -11,13 +11,22 @@ import {
   ContainerEventZero,
   ContainerIcons,
 } from './styles';
-import {ScrollView, View, TouchableOpacity, FlatList} from 'react-native';
+import {
+  ScrollView,
+  View,
+  TouchableOpacity,
+  FlatList,
+  ActivityIndicator,
+} from 'react-native';
 import Header from '../../components/Header';
 import Input from '../../components/Input';
 import Button from '../../components/Button';
 import Icon from 'react-native-vector-icons/FontAwesome';
 
-type HomeScreenProp = NativeStackNavigationProp<RootStackParamsList, 'Home'>;
+type HomeScreenProp = NativeStackNavigationProp<
+  RootStackParamsList,
+  'EventsAdmin'
+>;
 
 interface IEvents {
   _id: string;
@@ -31,19 +40,17 @@ interface IEvents {
   updatedAt: string;
 }
 
-const Home: React.FC = () => {
+const EventsAdmin: React.FC = () => {
   const navigation = useNavigation<HomeScreenProp>();
 
   const [events, setEvents] = useState([]);
   const [loaded, setLoaded] = useState<Boolean>(false);
-
-  const [admin, setAdmin] = useState<Boolean>(false);
+  const [eventId, setEventId] = useState<String>();
 
   useEffect(() => {
     (async () => {
       try {
-        const response = await axios.get('http://192.168.2.104:3006/events');
-
+        const response = await axios.get(`http://192.168.2.104:3006/events`);
         setEvents(response.data);
       } catch (error) {
         console.log(error);
@@ -57,30 +64,32 @@ const Home: React.FC = () => {
     return (
       <ContainerEvent>
         <View>
-          <TouchableOpacity onPress={() => navigation.navigate('Event')}>
+          <TouchableOpacity
+            onPress={() => {
+              navigation.navigate('Event', {eventId: data._id});
+              setEventId(data._id);
+            }}>
             <Text>{data.name}</Text>
           </TouchableOpacity>
         </View>
-        {!admin && (
-          <ContainerIcons>
-            <TouchableOpacity>
-              <Icon
-                name="edit"
-                size={30}
-                color="#7d7d7d"
-                style={{marginRight: 15}}
-              />
-            </TouchableOpacity>
-            <TouchableOpacity>
-              <Icon
-                name="trash-o"
-                size={28}
-                color="#7d7d7d"
-                style={{marginRight: 10}}
-              />
-            </TouchableOpacity>
-          </ContainerIcons>
-        )}
+        <ContainerIcons>
+          <TouchableOpacity>
+            <Icon
+              name="edit"
+              size={30}
+              color="#7d7d7d"
+              style={{marginRight: 15}}
+            />
+          </TouchableOpacity>
+          <TouchableOpacity>
+            <Icon
+              name="trash-o"
+              size={28}
+              color="#7d7d7d"
+              style={{marginRight: 10}}
+            />
+          </TouchableOpacity>
+        </ContainerIcons>
       </ContainerEvent>
     );
   };
@@ -88,21 +97,25 @@ const Home: React.FC = () => {
   return (
     <>
       <Header text="Eventos" />
-      {events.length ? (
-        <ScrollView contentContainerStyle={{flexGrow: 1}}>
-          <Container>
-            <View>
-              <Input placeholder="Buscar..." />
-            </View>
-            <View>
-              <FlatList
-                data={events}
-                renderItem={({item}) => <Item data={item} />}
-                keyExtractor={(item: IEvents) => item._id}
-              />
-            </View>
+      {!loaded ? (
+        <View style={{flex: 1, alignItems: 'center', justifyContent: 'center'}}>
+          <ActivityIndicator size="large" color="#1c658c" />
+        </View>
+      ) : events.length ? (
+        <>
+          <View style={{flexGrow: 1}}>
+            <Container>
+              <View>
+                <Input placeholder="Buscar..." />
+              </View>
+              <View>
+                <FlatList
+                  data={events}
+                  renderItem={({item}) => <Item data={item} />}
+                  keyExtractor={(item: IEvents) => item._id}
+                />
+              </View>
 
-            {!admin && (
               <View style={{marginTop: 20}}>
                 <Button
                   text="Cadastrar Evento"
@@ -110,9 +123,9 @@ const Home: React.FC = () => {
                   onPress={() => navigation.navigate('RegisterEvent')}
                 />
               </View>
-            )}
-          </Container>
-        </ScrollView>
+            </Container>
+          </View>
+        </>
       ) : (
         <>
           <ContainerEventZero>
@@ -124,4 +137,4 @@ const Home: React.FC = () => {
   );
 };
 
-export default Home;
+export default EventsAdmin;

@@ -1,42 +1,68 @@
-import React from 'react';
+import React, {useEffect, useState} from 'react';
 import {NativeStackNavigationProp} from '@react-navigation/native-stack';
 import {useNavigation} from '@react-navigation/native';
-import {RootStackParamsList} from '../RootStackParams';
+import {RootStackParamsList} from '../../routes/RootStackParams';
 import {View} from 'react-native';
 import {Container, Title, Text, Bold} from './styles';
 import Header from '../../components/Header';
 import Button from '../../components/Button';
+import axios from 'axios';
+// type EventScreenProp = NativeStackNavigationProp<RootStackParamsList, 'Event'>;
 
-type EventScreenProp = NativeStackNavigationProp<RootStackParamsList, 'Event'>;
+interface IEvent {
+  _id: string;
+  createdAt: string;
+  date: string;
+  description: string;
+  info: string;
+  location: string;
+  name: string;
+  price: number;
+  hours: string;
+  updatedAt: string;
+}
 
-const Event: React.FC = () => {
-  const navigation = useNavigation<EventScreenProp>();
+const Event: React.FC = ({route}: any) => {
+  // const navigation = useNavigation<EventScreenProp>();
+  const {eventId} = route.params;
+  console.log('eventId: ', eventId);
+
+  const [event, setEvent] = useState({} as IEvent);
+  console.log('event: ', event);
+  const [loaded, setLoaded] = useState<Boolean>(false);
+
+  useEffect(() => {
+    (async () => {
+      try {
+        const response = await axios.get(
+          `http://192.168.2.104:3006/event/${eventId}`,
+        );
+        setEvent(response.data);
+      } catch (error) {
+        console.log(error);
+      } finally {
+        setLoaded(true);
+      }
+    })();
+  }, []);
 
   return (
     <>
-      <Header text="Nome do evento" hasIcon={true} />
+      <Header text={event?.name} hasIcon={true} />
       <Container>
         <View>
-          <Title>Nome do evento</Title>
-          <Text>
-            Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do
-            eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim
-            ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut
-            aliquip ex ea commodo consequat.
-          </Text>
+          <Title>{event?.name}</Title>
+          <Text>{event?.description}</Text>
           <Bold>Data</Bold>
-          <Text>20/05/2022</Text>
+          <Text>{event?.date}</Text>
           <Bold>Horário</Bold>
-          <Text>20h30</Text>
+          <Text>{event?.hours}</Text>
           <Bold>Localização</Bold>
-          <Text>
-            Theatro São Pedro - Praça Mal. Deodoro, S/N - Centro Histórico,
-            Porto Alegre - RS, 90010-300
-          </Text>
+          <Text>{event?.location}</Text>
           <Bold>Valor do ingresso</Bold>
-          <Text>R$130,00</Text>
+          <Text>R${event?.price}</Text>
           <Bold>Informações de contato</Bold>
-          <Text>(51) 355496555, email@email.com </Text>
+          <Text>{event?.info}</Text>
         </View>
         <View>
           <Button text="Comprar ingresso" variantColor="blue" />
