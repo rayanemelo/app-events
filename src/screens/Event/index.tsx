@@ -40,7 +40,7 @@ const Event: React.FC = ({route}: any) => {
     (async () => {
       try {
         const response = await axios.get(
-          `http://192.168.2.104:3006/event/${eventId}`,
+          `http://192.168.2.104:8000/event/${eventId}`,
         );
         setEvent(response.data);
       } catch (error) {

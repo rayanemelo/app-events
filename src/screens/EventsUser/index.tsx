@@ -44,7 +44,7 @@ const EventsUser: React.FC = () => {
   useEffect(() => {
     (async () => {
       try {
-        const response = await axios.get(`http://192.168.2.104:3006/events`);
+        const response = await axios.get(`http://192.168.2.104:8000/events`);
         setEvents(response.data);
       } catch (error) {
         console.log(error);

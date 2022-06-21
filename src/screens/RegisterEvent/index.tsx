@@ -38,7 +38,7 @@ const RegisterEvent: React.FC = ({route}: any) => {
   const handleSubmit = async () => {
     try {
       const response = await axios.post(
-        'http://192.168.2.104:3006/register-event',
+        'http://192.168.2.104:8000/register-event',
         form,
       );
       setModalVisible(true);
@@ -50,7 +50,7 @@ const RegisterEvent: React.FC = ({route}: any) => {
   const handleUpdate = async () => {
     try {
       const response = await axios.put(
-        `http://192.168.2.104:3006/update-event/${data._id}`,
+        `http://192.168.2.104:8000/update-event/${data._id}`,
         form,
       );
       setModalVisible(true);

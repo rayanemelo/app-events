@@ -50,7 +50,7 @@ const EventsAdmin: React.FC = () => {
     const getEvents = async () => {
       setDeleted(false);
       try {
-        const response = await axios.get(`http://192.168.2.104:3006/events`);
+        const response = await axios.get(`http://192.168.2.104:8000/events`);
         setEvents(response.data);
       } catch (error) {
         console.log(error);
@@ -65,7 +65,7 @@ const EventsAdmin: React.FC = () => {
   const deleteEvent = async (id: string) => {
     try {
       const response = await axios.delete(
-        `http://192.168.2.104:3006/delete-event/${id}`,
+        `http://192.168.2.104:8000/delete-event/${id}`,
       );
     } catch (error) {
       console.log(error);
